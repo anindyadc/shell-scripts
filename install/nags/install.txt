@@ -27,7 +27,7 @@ sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagios
 sudo make install
 sudo /usr/local/nagios/bin/nagios -v
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 ======================================
 sudo nano /etc/systemd/system/nagios.service
 
