@@ -1,0 +1,38 @@
+sudo apt update
+sudo apt-get install nagios-nrpe-server nagios-plugins
+sudo nano /etc/nagios/nrpe.cfg // Add Server
+sudo /etc/init.d/nagios-nrpe-server restart
+
+Master
+cd /usr/local/nagios/etc/objects/
+sudo host1.cfg
+=====================
+define host {
+
+    use                     linux-server            ; Name of host template to use
+                                                    ; This host definition will inherit all variables that are defined
+                                                    ; in (or inherited by) the linux-server host template definition.
+    host_name               host1
+    alias                   nagios-nrpe
+    address                 172.31.83.161
+}
+======================
+cd ../
+sudo vi nagios.cfg
+cfg_file=/usr/local/nagios/etc/objects/host1.cf //add
+=======================
+sudo systemctl restart nagios
+
+//////////// Add service to monitor
+
+sudo apt install apache2
+
+========
+define service {
+
+    use                     generic-service           ; Name of service template to use
+    host_name               host1
+    service_description     Check Apache
+    check_command           check_http
+}
+========
