@@ -1,0 +1,23 @@
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y 
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt-get install docker-ce=5:19.03.15~3-0~ubuntu-focal -y 
+sudo service docker restart  
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -  
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y  
+
+====================
+
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU,Mem
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+=================
+
+apt-cache policy docker-ce
+sudo docker version
