@@ -24,4 +24,7 @@ echo "Uploading files to S3..."
 aws s3 cp $backup_path/wordpress_files_$timestamp.tar.gz s3://$s3_bucket/$s3_prefix/
 aws s3 cp $backup_path/wordpress_database_$timestamp.sql.gz s3://$s3_bucket/$s3_prefix/
 
+# Delete backups older than 30 days
+find $backup_path -name "*.gz" -type f -mtime +30 -exec rm {} \;
+
 echo "Export complete. Files uploaded to S3 bucket: $s3_bucket/$s3_prefix"
