@@ -118,7 +118,7 @@ az vm create \
   --name "$rg_name"-vm \
   --nics myNic \
   --image Ubuntu2204 \
-  --admin-username azureuser \
+  --admin-username ubuntu \
   --size Standard_DS1_v2 \
   --availability-set "" \
   --location eastus \
